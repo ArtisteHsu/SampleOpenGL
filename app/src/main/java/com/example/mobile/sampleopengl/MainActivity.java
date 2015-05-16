@@ -1,5 +1,6 @@
 package com.example.mobile.sampleopengl;
 
+import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,11 +8,16 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends AppCompatActivity {
+    private GLSurfaceView glSurfaceView;
+    private SampleGLRenderer glRenderer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        glSurfaceView = new GLSurfaceView(this);
+        glRenderer = new SampleGLRenderer();
+        glSurfaceView.setRenderer(glRenderer);
+        setContentView(glSurfaceView);
     }
 
     @Override
