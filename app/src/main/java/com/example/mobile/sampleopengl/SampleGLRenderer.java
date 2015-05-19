@@ -7,16 +7,21 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class SampleGLRenderer implements GLSurfaceView.Renderer {
+    private SampleGLTriangle mTriangle;
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Set background color
-        GLES20.glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+        GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+        mTriangle = new SampleGLTriangle();
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
         // Redraw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+
+        mTriangle.draw();
     }
 
     @Override
