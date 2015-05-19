@@ -10,12 +10,14 @@ import javax.microedition.khronos.opengles.GL10;
 public class SampleGLRenderer implements GLSurfaceView.Renderer {
     private Resources resources;
     private SampleGLTriangle mTriangle;
+    private SampleGLTexture mTexture;
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Set background color
         GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         mTriangle = new SampleGLTriangle();
+        mTexture = new SampleGLTexture(gl, resources);
     }
 
     @Override
@@ -23,7 +25,8 @@ public class SampleGLRenderer implements GLSurfaceView.Renderer {
         // Redraw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
-        mTriangle.draw();
+        //mTriangle.draw();
+        mTexture.draw(gl);
     }
 
     @Override
