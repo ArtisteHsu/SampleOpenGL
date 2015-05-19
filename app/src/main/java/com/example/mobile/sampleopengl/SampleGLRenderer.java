@@ -1,5 +1,6 @@
 package com.example.mobile.sampleopengl;
 
+import android.content.res.Resources;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
@@ -7,6 +8,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class SampleGLRenderer implements GLSurfaceView.Renderer {
+    private Resources resources;
     private SampleGLTriangle mTriangle;
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -27,5 +29,9 @@ public class SampleGLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
 
+    }
+
+    public SampleGLRenderer(Resources res) {
+        resources = res;
     }
 }
