@@ -26,6 +26,8 @@ public class SampleGLTexture {
              1.0f,  1.0f, 0.0f  // Top-Right
     };
     private FloatBuffer textureBuffer;
+    // Texturing UV coordinates
+    // http://www.opengl-tutorial.org/beginners-tutorials/tutorial-5-a-textured-cube/
     private float textureCoords[] = {
             0.0f, 1.0f,
             1.0f, 1.0f,
@@ -73,7 +75,7 @@ public class SampleGLTexture {
         gl.glGenTextures(1, textureHandle, 0);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textureHandle[0]);
 
-        // Set up filer - GL_LINEAR for better image quality
+        // Set up filter - GL_LINEAR for better image quality
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
 
