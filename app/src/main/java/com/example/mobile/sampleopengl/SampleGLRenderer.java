@@ -1,7 +1,6 @@
 package com.example.mobile.sampleopengl;
 
 import android.content.res.Resources;
-import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -14,7 +13,7 @@ public class SampleGLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Set background color
-        GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         mTriangle = new SampleGLTriangle();
         mTexture = new SampleGLTexture(gl, resources);
@@ -23,7 +22,7 @@ public class SampleGLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         // Redraw background color
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
         //mTriangle.draw();
         mTexture.draw(gl);
