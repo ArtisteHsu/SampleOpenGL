@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         glSurfaceView = new GLSurfaceView(this);
-        glSurfaceView.setEGLContextClientVersion(1);
+        glSurfaceView.setEGLContextClientVersion(2);
         glRenderer = new SampleGLRenderer(getResources());
         glSurfaceView.setRenderer(glRenderer);
         setContentView(glSurfaceView);

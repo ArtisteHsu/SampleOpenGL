@@ -10,6 +10,7 @@ public class SampleGLRenderer implements GLSurfaceView.Renderer {
     private Resources resources;
     private SampleGLTriangle mTriangle;
     private SampleGLTexture mTexture;
+    private SampleGLES20Texture mTexture20;
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Set background color
@@ -17,6 +18,7 @@ public class SampleGLRenderer implements GLSurfaceView.Renderer {
 
         mTriangle = new SampleGLTriangle();
         mTexture = new SampleGLTexture(gl, resources);
+        mTexture20 = new SampleGLES20Texture(resources);
     }
 
     @Override
@@ -25,7 +27,8 @@ public class SampleGLRenderer implements GLSurfaceView.Renderer {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
         //mTriangle.draw();
-        mTexture.draw(gl);
+        //mTexture.draw(gl);
+        mTexture20.draw();
     }
 
     @Override
