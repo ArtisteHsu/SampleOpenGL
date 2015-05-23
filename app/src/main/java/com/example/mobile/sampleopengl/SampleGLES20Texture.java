@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
+import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -71,6 +72,17 @@ public class SampleGLES20Texture {
         GLES20.glShaderSource(shader, shaderCode);
         GLES20.glCompileShader(shader);
 
+        // Check shader compile status
+        int compileStatus[] = {GLES20.GL_FALSE};
+        GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
+        if(compileStatus[0] == GLES20.GL_FALSE) {
+            int logSize[] = {0};
+            GLES20.glGetShaderiv(shader, GLES20.GL_INFO_LOG_LENGTH, logSize, 0);
+            if(logSize[0] > 0) {
+                String errorLog = GLES20.glGetShaderInfoLog(shader);
+                Log.d(SampleGLES20Texture.class.getName() , errorLog);
+            }
+        }
         return shader;
     }
 
