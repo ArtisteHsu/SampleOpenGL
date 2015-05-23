@@ -46,11 +46,23 @@ public class SampleGLES20Texture {
 
     private final String fragmentShaderCode =
             "precision mediump float;" +
-            "uniform sampler2D texture;" +
-            "varying vec2 texCoordVar;" +
-            "void main() {" +
-            "    gl_FragColor = texture2D(texture, texCoordVar);" +
-            "}";
+                    "uniform sampler2D texture;" +
+                    "varying vec2 texCoordVar;" +
+                    "void main() {" +
+                    "    vec4 texColor = texture2D(texture, texCoordVar);" +
+                    "    gl_FragColor = texture2D(texture, texCoordVar);" +
+                    "    if (texCoordVar.x < 0.5 && texCoordVar.y < 0.5) {" +
+                    "        texColor.g = 0.0;" +
+                    "        texColor.b = 0.0;" +
+                    "    } else if (texCoordVar.x < 0.5 && texCoordVar.y > 0.5){" +
+                    "        texColor.r = 0.0;" +
+                    "        texColor.b = 0.0;" +
+                    "    } else if (texCoordVar.x > 0.5 && texCoordVar.y > 0.5){" +
+                    "        texColor.r = 0.0;" +
+                    "        texColor.g = 0.0;" +
+                    "    }" +
+                    "   gl_FragColor = texColor;" +
+                    "}";
 
     private static int loadShader(int type, String shaderCode) {
         int shader;
