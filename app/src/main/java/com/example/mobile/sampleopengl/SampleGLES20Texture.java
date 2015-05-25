@@ -50,19 +50,32 @@ public class SampleGLES20Texture {
                     "uniform sampler2D texture;" +
                     "varying vec2 texCoordVar;" +
                     "void main() {" +
-                    "    vec4 texColor = texture2D(texture, texCoordVar);" +
-                    "    gl_FragColor = texture2D(texture, texCoordVar);" +
+                    "    vec4 texColor;" +
+                    "    vec2 position  = texCoordVar;" +
                     "    if (texCoordVar.x < 0.5 && texCoordVar.y < 0.5) {" +
+                    "        position.x = position.x * 2.0;" +
+                    "        position.y = position.y * 2.0;" +
+                    "        texColor.r = texture2D(texture, position).r;" +
                     "        texColor.g = 0.0;" +
                     "        texColor.b = 0.0;" +
                     "    } else if (texCoordVar.x < 0.5 && texCoordVar.y > 0.5){" +
+                    "        position.x = position.x * 2.0;" +
+                    "        position.y = (position.y - 0.5) * 2.0;" +
                     "        texColor.r = 0.0;" +
+                    "        texColor.g = texture2D(texture, position).g;" +
                     "        texColor.b = 0.0;" +
                     "    } else if (texCoordVar.x > 0.5 && texCoordVar.y > 0.5){" +
+                    "        position.x = (position.x - 0.5) * 2.0;" +
+                    "        position.y = (position.y - 0.5) * 2.0;" +
                     "        texColor.r = 0.0;" +
                     "        texColor.g = 0.0;" +
-                    "    }" +
-                    "   gl_FragColor = texColor;" +
+                    "        texColor.b = texture2D(texture, position).b;" +
+                    "    } else {" +
+                    "        position.x = (position.x - 0.5) * 2.0;" +
+                    "        position.y = position.y * 2.0;" +
+                    "        texColor = texture2D(texture, position);" +
+                    "    };" +
+                    "    gl_FragColor = texColor;" +
                     "}";
 
     private static int loadShader(int type, String shaderCode) {
