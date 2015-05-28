@@ -8,16 +8,16 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class SampleGLRenderer implements GLSurfaceView.Renderer {
     private Resources resources;
-    private SampleGLTriangle mTriangle;
-    private SampleGLTexture mTexture;
+    //private SampleGLTriangle mTriangle;
+    //private SampleGLTexture mTexture;
     private SampleGLES20Texture mTexture20;
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Set background color
         gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        mTriangle = new SampleGLTriangle();
-        mTexture = new SampleGLTexture(gl, resources);
+        //mTriangle = new SampleGLTriangle();
+        //mTexture = new SampleGLTexture(gl, resources);
         mTexture20 = new SampleGLES20Texture(resources);
     }
 
