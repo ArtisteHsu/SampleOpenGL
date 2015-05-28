@@ -155,11 +155,12 @@ public class SampleGLES20Texture {
         GLES20.glAttachShader(mProgram, loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode));
         GLES20.glLinkProgram(mProgram);
 
-        // Assign GL_TEXTURE0 to fragment shader Sampler2D object "texture"
+        // Assign texture unit 0 (GL_TEXTURE0) to fragment shader Sampler2D object "texture"
+        // https://www.opengl.org/wiki/Sampler_%28GLSL%29
         GLES20.glUseProgram(mProgram);
         int textureFlower;
         textureFlower = GLES20.glGetUniformLocation(mProgram, "texture");
-        GLES20.glUniform1i(textureFlower, GLES20.GL_TEXTURE0);
+        GLES20.glUniform1i(textureFlower, 0 /* texture unit 0*/);
 
         // Create "One" "texture object"
         GLES20.glGenTextures(1, textureHandle, 0);
