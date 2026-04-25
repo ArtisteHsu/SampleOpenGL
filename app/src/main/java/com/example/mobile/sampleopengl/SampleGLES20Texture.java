@@ -43,7 +43,7 @@ public class SampleGLES20Texture {
             "void main() {" +
             "    gl_Position = vPosition;" +
             "    texCoordVar = vTexCoord;" +
-            "};";
+            "}";
 
     private final String fragmentShaderCode =
             "precision mediump float;" +
@@ -74,7 +74,7 @@ public class SampleGLES20Texture {
                     "        position.x = (position.x - 0.5) * 2.0;" +
                     "        position.y = position.y * 2.0;" +
                     "        texColor = texture2D(texture, position);" +
-                    "    };" +
+                    "    }" +
                     "    gl_FragColor = texColor;" +
                     "}";
 
@@ -89,12 +89,10 @@ public class SampleGLES20Texture {
         int compileStatus[] = {GLES20.GL_FALSE};
         GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
         if(compileStatus[0] == GLES20.GL_FALSE) {
-            int logSize[] = {0};
-            GLES20.glGetShaderiv(shader, GLES20.GL_INFO_LOG_LENGTH, logSize, 0);
-            if(logSize[0] > 0) {
-                String errorLog = GLES20.glGetShaderInfoLog(shader);
-                Log.d(SampleGLES20Texture.class.getName() , errorLog);
-            }
+            String errorLog = GLES20.glGetShaderInfoLog(shader);
+            Log.e(SampleGLES20Texture.class.getName(), errorLog);
+            GLES20.glDeleteShader(shader);
+            throw new RuntimeException("Shader compile failed: " + errorLog);
         }
         return shader;
     }
@@ -154,6 +152,14 @@ public class SampleGLES20Texture {
         GLES20.glAttachShader(mProgram, loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode));
         GLES20.glAttachShader(mProgram, loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode));
         GLES20.glLinkProgram(mProgram);
+
+        int[] linkStatus = new int[1];
+        GLES20.glGetProgramiv(mProgram, GLES20.GL_LINK_STATUS, linkStatus, 0);
+        if (linkStatus[0] == 0) {
+            String errorLog = GLES20.glGetProgramInfoLog(mProgram);
+            GLES20.glDeleteProgram(mProgram);
+            throw new RuntimeException("Program link failed: " + errorLog);
+        }
 
         // Assign texture unit 0 (GL_TEXTURE0) to fragment shader Sampler2D object "texture"
         // https://www.opengl.org/wiki/Sampler_%28GLSL%29
