@@ -22,7 +22,7 @@ public class SampleGLTriangle {
             "attribute vec4 vPosition;" +
             "void main() {" +
             "    gl_Position = vPosition;" +
-            "};";
+            "}";
 
     float color[] = { 0.6f, 0.7f, 0.2f, 1.0f };
     private final String fragmentShaderCode =
@@ -38,6 +38,14 @@ public class SampleGLTriangle {
         shader = GLES20.glCreateShader(type);
         GLES20.glShaderSource(shader, shaderCode);
         GLES20.glCompileShader(shader);
+
+        int[] compileStatus = new int[1];
+        GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
+        if (compileStatus[0] == 0) {
+            String errorLog = GLES20.glGetShaderInfoLog(shader);
+            GLES20.glDeleteShader(shader);
+            throw new RuntimeException("Shader compile failed: " + errorLog);
+        }
 
         return shader;
     }
@@ -87,5 +95,13 @@ public class SampleGLTriangle {
         GLES20.glAttachShader(mProgram, loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode));
         GLES20.glAttachShader(mProgram, loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode));
         GLES20.glLinkProgram(mProgram);
+
+        int[] linkStatus = new int[1];
+        GLES20.glGetProgramiv(mProgram, GLES20.GL_LINK_STATUS, linkStatus, 0);
+        if (linkStatus[0] == 0) {
+            String errorLog = GLES20.glGetProgramInfoLog(mProgram);
+            GLES20.glDeleteProgram(mProgram);
+            throw new RuntimeException("Program link failed: " + errorLog);
+        }
     }
 }
